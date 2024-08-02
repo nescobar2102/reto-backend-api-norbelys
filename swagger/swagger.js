@@ -8,9 +8,9 @@
   "paths": {
     "/api": {
       "get": {
-        "summary": "hello",
+        "summary": "app",
         "description": "",
-        "operationId": "hello.get./api",
+        "operationId": "app.get./api",
         "consumes": [
           "application/json"
         ],
@@ -166,6 +166,30 @@
       ],
       "additionalProperties": false,
       "title": "Films",
+      "type": "object"
+    },
+    "APIGatewayProxyResult": {
+      "properties": {
+        "statusCode": {
+          "title": "APIGatewayProxyResult.statusCode",
+          "type": "number"
+        },
+        "body": {
+          "title": "APIGatewayProxyResult.body",
+          "type": "string"
+        }
+      },
+      "required": [
+        "statusCode",
+        "body"
+      ],
+      "additionalProperties": false,
+      "title": "APIGatewayProxyResult",
+      "type": "object"
+    },
+    "APIGatewayProxyEvent": {
+      "additionalProperties": {},
+      "title": "APIGatewayProxyEvent",
       "type": "object"
     },
     "FilmResponse": {

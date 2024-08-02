@@ -1,14 +1,7 @@
-import axios, { AxiosResponse } from 'axios';
-import AWS from 'aws-sdk';
-import { v4 } from 'uuid';
+import AWS from 'aws-sdk'; 
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda';
 import { FilmResponse } from './types/api-types';
  
-interface Films {
-  titulo: string;
-  director: string;
-  productor: string; 
-}
  
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 const tableName = 'FilmTable';

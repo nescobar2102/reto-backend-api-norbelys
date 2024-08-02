@@ -1,4 +1,3 @@
-import axios, { AxiosResponse } from 'axios';
 import AWS from 'aws-sdk';
 import { v4 } from 'uuid';
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda';
@@ -10,8 +9,8 @@ const tableName = 'FilmTable';
 const addFilm = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
 
-    const { title, producer, director } = JSON.parse(event.body!);
-    const createdAt = new Date();
+    const { title, producer, director } = JSON.parse(event.body!); 
+    const createdAt = new Date().getTime();
     const id = v4();
  
     const newFilm = {

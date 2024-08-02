@@ -23,8 +23,8 @@ plugins:
   - serverless-auto-swagger
 
 functions:
-  hello:
-    handler: src/hello.hello
+  app:
+    handler: src/app.welcome
     events:
       - httpApi:
           path: /api
@@ -97,8 +97,8 @@ custom:
     operations:
       - path: /api
         method: get
-        summary: Get a hello message
-        description: Retrieves a simple hello message
+        summary: Get  message to welcome
+        description: Retrieves a simple welcome message
         responses:
           '200':
             description: Successful response
@@ -132,12 +132,26 @@ custom:
           description: The film to create
           required: true
           schema:
-            $ref: '#/models/Film'
+            $ref: '#/components/schemas/Film'
         responses:
           '200':
             description: Successful response
-            schema:
-              $ref: '#/models/Film'
+            schema: 
+              Film:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  producer:
+                    type: string
+                  director:
+                    type: string
+                  createdAt:
+                    type: integer
+                  done:
+                    type: boolean
       - path: /api/getFilmsById/{id}
         method: get
         summary: Get a film by ID
@@ -153,3 +167,4 @@ custom:
             description: Successful response
             schema:
               $ref: '#/models/Film'
+ 
