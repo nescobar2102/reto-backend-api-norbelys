@@ -1,13 +1,6 @@
 import axios, { AxiosResponse } from 'axios'; 
-import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda';
- 
-interface Films {
-  titulo: string;
-  director: string;
-  productor: string;
-  fecha_estreno: string;
-}
-
+import { APIGatewayProxyResult } from 'aws-lambda';
+import { FilmResponse, Films } from './types/api-types'; 
    
 const films = async (): Promise<APIGatewayProxyResult> => {
   try {
@@ -21,13 +14,16 @@ const films = async (): Promise<APIGatewayProxyResult> => {
       fecha_estreno: resource.release_date
     }));
 
-    return {
-      statusCode: 200,      
-      body: JSON.stringify({
-        success:true,
-        data:filmsList 
-      }),
+
+    const result: FilmResponse = {
+      success: true,
+      data: filmsList,
+      message: '.',
     };
+    return {
+      statusCode: 200,
+      body: JSON.stringify(result),
+    }; 
   } catch (error) {
     console.error(error);
     return {

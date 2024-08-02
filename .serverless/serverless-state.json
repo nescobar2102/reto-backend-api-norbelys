@@ -27,13 +27,6 @@
                   ]
                 }
               ]
-            },
-            {
-              "Effect": "Allow",
-              "Action": [
-                "iot:*"
-              ],
-              "Resource": "*"
             }
           ]
         }
@@ -202,10 +195,19 @@
                         ]
                       },
                       {
-                        "$ref": "$[\"service\"][\"provider\"][\"iam\"][\"role\"][\"statements\"][0]"
+                        "Effect": "Deny",
+                        "Action": "logs:PutLogEvents",
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/reto-api-dev-swagger-ui:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/reto-api-dev-swagger-json:*"
+                          }
+                        ]
                       },
                       {
-                        "$ref": "$[\"service\"][\"provider\"][\"iam\"][\"role\"][\"statements\"][1]"
+                        "$ref": "$[\"service\"][\"provider\"][\"iam\"][\"role\"][\"statements\"][0]"
                       }
                     ]
                   }
@@ -234,19 +236,16 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/reto-api/dev/1722616547481-2024-08-02T16:35:47.481Z/reto-api.zip"
+                "S3Key": "serverless/reto-api/dev/1722627606109-2024-08-02T19:40:06.109Z/reto-api.zip"
               },
-              "Handler": "index.handler",
+              "Handler": "src/hello.hello",
               "Runtime": "nodejs20.x",
               "FunctionName": "reto-api-dev-hello",
               "MemorySize": 1024,
               "Timeout": 6,
               "Environment": {
                 "Variables": {
-                  "SLS_IOT_ENDPOINT": "a11c3p4eiodppe-ats.iot.us-east-1.amazonaws.com",
-                  "SLS_SERVICE": "reto-api",
-                  "SLS_STAGE": "dev",
-                  "SLS_FUNCTION": "hello"
+                  "NODE_OPTIONS": "--enable-source-maps"
                 }
               },
               "Role": {
@@ -267,19 +266,16 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/reto-api/dev/1722616547481-2024-08-02T16:35:47.481Z/reto-api.zip"
+                "S3Key": "serverless/reto-api/dev/1722627606109-2024-08-02T19:40:06.109Z/reto-api.zip"
               },
-              "Handler": "index.handler",
+              "Handler": "src/people.people",
               "Runtime": "nodejs20.x",
               "FunctionName": "reto-api-dev-people",
               "MemorySize": 1024,
               "Timeout": 6,
               "Environment": {
                 "Variables": {
-                  "SLS_IOT_ENDPOINT": "a11c3p4eiodppe-ats.iot.us-east-1.amazonaws.com",
-                  "SLS_SERVICE": "reto-api",
-                  "SLS_STAGE": "dev",
-                  "SLS_FUNCTION": "people"
+                  "NODE_OPTIONS": "--enable-source-maps"
                 }
               },
               "Role": {
@@ -300,19 +296,16 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/reto-api/dev/1722616547481-2024-08-02T16:35:47.481Z/reto-api.zip"
+                "S3Key": "serverless/reto-api/dev/1722627606109-2024-08-02T19:40:06.109Z/reto-api.zip"
               },
-              "Handler": "index.handler",
+              "Handler": "src/films.films",
               "Runtime": "nodejs20.x",
               "FunctionName": "reto-api-dev-films",
               "MemorySize": 1024,
               "Timeout": 6,
               "Environment": {
                 "Variables": {
-                  "SLS_IOT_ENDPOINT": "a11c3p4eiodppe-ats.iot.us-east-1.amazonaws.com",
-                  "SLS_SERVICE": "reto-api",
-                  "SLS_STAGE": "dev",
-                  "SLS_FUNCTION": "films"
+                  "NODE_OPTIONS": "--enable-source-maps"
                 }
               },
               "Role": {
@@ -333,19 +326,16 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/reto-api/dev/1722616547481-2024-08-02T16:35:47.481Z/reto-api.zip"
+                "S3Key": "serverless/reto-api/dev/1722627606109-2024-08-02T19:40:06.109Z/reto-api.zip"
               },
-              "Handler": "index.handler",
+              "Handler": "src/addFilm.addFilm",
               "Runtime": "nodejs20.x",
               "FunctionName": "reto-api-dev-addFilm",
               "MemorySize": 1024,
               "Timeout": 6,
               "Environment": {
                 "Variables": {
-                  "SLS_IOT_ENDPOINT": "a11c3p4eiodppe-ats.iot.us-east-1.amazonaws.com",
-                  "SLS_SERVICE": "reto-api",
-                  "SLS_STAGE": "dev",
-                  "SLS_FUNCTION": "addFilm"
+                  "NODE_OPTIONS": "--enable-source-maps"
                 }
               },
               "Role": {
@@ -366,19 +356,16 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/reto-api/dev/1722616547481-2024-08-02T16:35:47.481Z/reto-api.zip"
+                "S3Key": "serverless/reto-api/dev/1722627606109-2024-08-02T19:40:06.109Z/reto-api.zip"
               },
-              "Handler": "index.handler",
+              "Handler": "src/getFilm.getFilmsDB",
               "Runtime": "nodejs20.x",
               "FunctionName": "reto-api-dev-getFilmsDB",
               "MemorySize": 1024,
               "Timeout": 6,
               "Environment": {
                 "Variables": {
-                  "SLS_IOT_ENDPOINT": "a11c3p4eiodppe-ats.iot.us-east-1.amazonaws.com",
-                  "SLS_SERVICE": "reto-api",
-                  "SLS_STAGE": "dev",
-                  "SLS_FUNCTION": "getFilmsDB"
+                  "NODE_OPTIONS": "--enable-source-maps"
                 }
               },
               "Role": {
@@ -392,54 +379,118 @@
               "GetFilmsDBLogGroup"
             ]
           },
-          "HelloLambdaVersion49CKcoIIxpH7ONPUplyX7rrNarIw3e6NiJJzExTLIg": {
+          "SwaggerUILambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/reto-api/dev/1722627606109-2024-08-02T19:40:06.109Z/reto-api.zip"
+              },
+              "Handler": "swagger/swagger-html.handler",
+              "Runtime": "nodejs20.x",
+              "FunctionName": "reto-api-dev-swagger-ui",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            }
+          },
+          "SwaggerJSONLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/reto-api/dev/1722627606109-2024-08-02T19:40:06.109Z/reto-api.zip"
+              },
+              "Handler": "swagger/swagger-json.handler",
+              "Runtime": "nodejs20.x",
+              "FunctionName": "reto-api-dev-swagger-json",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            }
+          },
+          "HelloLambdaVersion14uI6evbquQBP1IhguzPG7PHEonf2R3XtwStHtvH2s4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "HelloLambdaFunction"
               },
-              "CodeSha256": "ZpCvu5h41/ikHVfwCxKuxorb1VMXOlQ4ibksWto4yXo="
+              "CodeSha256": "6xdBHfjukMgeBopsrJbjoVDRoMqaJTYJ5hGU0k1Uazk="
             }
           },
-          "PeopleLambdaVersionHOsVyg3HcT2euQiDZ3BiKIvim4Trr2oMUpuAhmurmt4": {
+          "PeopleLambdaVersionBGkDEezWYqxm1CXePvA2YzkHHDig2fJ1PdRF5wl6U": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "PeopleLambdaFunction"
               },
-              "CodeSha256": "ZpCvu5h41/ikHVfwCxKuxorb1VMXOlQ4ibksWto4yXo="
+              "CodeSha256": "6xdBHfjukMgeBopsrJbjoVDRoMqaJTYJ5hGU0k1Uazk="
             }
           },
-          "FilmsLambdaVersionrLv2wiQU0VQScM3NA2Tyfj8BUibI8NiyILdgahn1JqA": {
+          "FilmsLambdaVersion2Z0EDsHgFHM2qdt7nb5MD0hra0wGv4mg3JhoUjmYBJs": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FilmsLambdaFunction"
               },
-              "CodeSha256": "ZpCvu5h41/ikHVfwCxKuxorb1VMXOlQ4ibksWto4yXo="
+              "CodeSha256": "6xdBHfjukMgeBopsrJbjoVDRoMqaJTYJ5hGU0k1Uazk="
             }
           },
-          "AddFilmLambdaVersionSZ3IPcB79BGVdZprsmg9FFH6nhdj9i5QHvVNKTrnE": {
+          "AddFilmLambdaVersionDNFipbIhFbUnB0MUf0NvvD83KKPxowZphW4Rwpt384": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddFilmLambdaFunction"
               },
-              "CodeSha256": "ZpCvu5h41/ikHVfwCxKuxorb1VMXOlQ4ibksWto4yXo="
+              "CodeSha256": "6xdBHfjukMgeBopsrJbjoVDRoMqaJTYJ5hGU0k1Uazk="
             }
           },
-          "GetFilmsDBLambdaVersionbCCfIw2vVAC3jloa7tmtfCOtIAgp8aOjcxFMMNM": {
+          "GetFilmsDBLambdaVersionIMgMgUHFazS4ojRkVTerOt2aoJGshst5T8fp9iGM0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetFilmsDBLambdaFunction"
               },
-              "CodeSha256": "ZpCvu5h41/ikHVfwCxKuxorb1VMXOlQ4ibksWto4yXo="
+              "CodeSha256": "6xdBHfjukMgeBopsrJbjoVDRoMqaJTYJ5hGU0k1Uazk="
+            }
+          },
+          "SwaggerUILambdaVersionsif89N2zrVd17gN1Y1UEmCpmuKmPulB3nwuIp8CEMM": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "SwaggerUILambdaFunction"
+              },
+              "CodeSha256": "6xdBHfjukMgeBopsrJbjoVDRoMqaJTYJ5hGU0k1Uazk="
+            }
+          },
+          "SwaggerJSONLambdaVersionXl0OM0ajjVOctbdnHAuWURyGkQfTLj9A4kgWOZ8": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "SwaggerJSONLambdaFunction"
+              },
+              "CodeSha256": "6xdBHfjukMgeBopsrJbjoVDRoMqaJTYJ5hGU0k1Uazk="
             }
           },
           "ApiGatewayRestApi": {
@@ -527,7 +578,7 @@
               "AddFilmLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1722616542492": {
+          "ApiGatewayDeployment1722627592756": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -884,6 +935,150 @@
             },
             "DependsOn": "HttpApiIntegrationGetFilmsDB"
           },
+          "SwaggerUILambdaPermissionHttpApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "SwaggerUILambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "HttpApiIntegrationSwaggerUI": {
+            "Type": "AWS::ApiGatewayV2::Integration",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "IntegrationType": "AWS_PROXY",
+              "IntegrationUri": {
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"SwaggerUILambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
+              },
+              "PayloadFormatVersion": "2.0",
+              "TimeoutInMillis": 30000
+            }
+          },
+          "HttpApiRouteGetSwagger": {
+            "Type": "AWS::ApiGatewayV2::Route",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "RouteKey": "GET /swagger",
+              "Target": {
+                "Fn::Join": [
+                  "/",
+                  [
+                    "integrations",
+                    {
+                      "Ref": "HttpApiIntegrationSwaggerUI"
+                    }
+                  ]
+                ]
+              }
+            },
+            "DependsOn": "HttpApiIntegrationSwaggerUI"
+          },
+          "SwaggerJSONLambdaPermissionHttpApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "SwaggerJSONLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "HttpApiIntegrationSwaggerJSON": {
+            "Type": "AWS::ApiGatewayV2::Integration",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "IntegrationType": "AWS_PROXY",
+              "IntegrationUri": {
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"SwaggerJSONLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
+              },
+              "PayloadFormatVersion": "2.0",
+              "TimeoutInMillis": 30000
+            }
+          },
+          "HttpApiRouteGetSwaggerjson": {
+            "Type": "AWS::ApiGatewayV2::Route",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "RouteKey": "GET /swagger.json",
+              "Target": {
+                "Fn::Join": [
+                  "/",
+                  [
+                    "integrations",
+                    {
+                      "Ref": "HttpApiIntegrationSwaggerJSON"
+                    }
+                  ]
+                ]
+              }
+            },
+            "DependsOn": "HttpApiIntegrationSwaggerJSON"
+          },
           "FilmTable": {
             "Type": "AWS::DynamoDB::Table",
             "Properties": {
@@ -919,7 +1114,7 @@
           "HelloLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "HelloLambdaVersion49CKcoIIxpH7ONPUplyX7rrNarIw3e6NiJJzExTLIg"
+              "Ref": "HelloLambdaVersion14uI6evbquQBP1IhguzPG7PHEonf2R3XtwStHtvH2s4"
             },
             "Export": {
               "Name": "sls-reto-api-dev-HelloLambdaFunctionQualifiedArn"
@@ -928,7 +1123,7 @@
           "PeopleLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "PeopleLambdaVersionHOsVyg3HcT2euQiDZ3BiKIvim4Trr2oMUpuAhmurmt4"
+              "Ref": "PeopleLambdaVersionBGkDEezWYqxm1CXePvA2YzkHHDig2fJ1PdRF5wl6U"
             },
             "Export": {
               "Name": "sls-reto-api-dev-PeopleLambdaFunctionQualifiedArn"
@@ -937,7 +1132,7 @@
           "FilmsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FilmsLambdaVersionrLv2wiQU0VQScM3NA2Tyfj8BUibI8NiyILdgahn1JqA"
+              "Ref": "FilmsLambdaVersion2Z0EDsHgFHM2qdt7nb5MD0hra0wGv4mg3JhoUjmYBJs"
             },
             "Export": {
               "Name": "sls-reto-api-dev-FilmsLambdaFunctionQualifiedArn"
@@ -946,7 +1141,7 @@
           "AddFilmLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddFilmLambdaVersionSZ3IPcB79BGVdZprsmg9FFH6nhdj9i5QHvVNKTrnE"
+              "Ref": "AddFilmLambdaVersionDNFipbIhFbUnB0MUf0NvvD83KKPxowZphW4Rwpt384"
             },
             "Export": {
               "Name": "sls-reto-api-dev-AddFilmLambdaFunctionQualifiedArn"
@@ -955,10 +1150,28 @@
           "GetFilmsDBLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetFilmsDBLambdaVersionbCCfIw2vVAC3jloa7tmtfCOtIAgp8aOjcxFMMNM"
+              "Ref": "GetFilmsDBLambdaVersionIMgMgUHFazS4ojRkVTerOt2aoJGshst5T8fp9iGM0"
             },
             "Export": {
               "Name": "sls-reto-api-dev-GetFilmsDBLambdaFunctionQualifiedArn"
+            }
+          },
+          "SwaggerUILambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "SwaggerUILambdaVersionsif89N2zrVd17gN1Y1UEmCpmuKmPulB3nwuIp8CEMM"
+            },
+            "Export": {
+              "Name": "sls-reto-api-dev-SwaggerUILambdaFunctionQualifiedArn"
+            }
+          },
+          "SwaggerJSONLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "SwaggerJSONLambdaVersionXl0OM0ajjVOctbdnHAuWURyGkQfTLj9A4kgWOZ8"
+            },
+            "Export": {
+              "Name": "sls-reto-api-dev-SwaggerJSONLambdaFunctionQualifiedArn"
             }
           },
           "ServiceEndpoint": {
@@ -1107,10 +1320,142 @@
       },
       "vpc": {}
     },
+    "custom": {
+      "documentation": {
+        "api": {
+          "info": {
+            "title": "Reto API",
+            "version": "1.0.0"
+          }
+        },
+        "models": [
+          {
+            "name": "Film",
+            "description": "A film resource",
+            "type": "object",
+            "required": [
+              "id",
+              "title",
+              "director",
+              "producer"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "director": {
+                "type": "string"
+              },
+              "producer": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "operations": [
+          {
+            "path": "/api",
+            "method": "get",
+            "summary": "Get a hello message",
+            "description": "Retrieves a simple hello message",
+            "responses": {
+              "200": {
+                "description": "Successful response",
+                "schema": {
+                  "$ref": "#/models/Film"
+                }
+              }
+            }
+          },
+          {
+            "path": "/api/getPeople",
+            "method": "get",
+            "summary": "Get a list of people",
+            "description": "Retrieves a list of people",
+            "responses": {
+              "200": {
+                "description": "Successful response",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/models/Film"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "path": "/api/getFilm",
+            "method": "get",
+            "summary": "Get a film",
+            "description": "Retrieves a film",
+            "responses": {
+              "200": {
+                "description": "Successful response",
+                "schema": {
+                  "$ref": "#/models/Film"
+                }
+              }
+            }
+          },
+          {
+            "path": "/api/createFill",
+            "method": "post",
+            "summary": "Create a film",
+            "description": "Creates a new film",
+            "requestBody": {
+              "description": "The film to create",
+              "required": true,
+              "schema": {
+                "$ref": "#/models/Film"
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Successful response",
+                "schema": {
+                  "$ref": "#/models/Film"
+                }
+              }
+            }
+          },
+          {
+            "path": "/api/getFilmsById/{id}",
+            "method": "get",
+            "summary": "Get a film by ID",
+            "description": "Retrieves a film by its ID",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Successful response",
+                "schema": {
+                  "$ref": "#/models/Film"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "plugins": [
+      "serverless-auto-swagger"
+    ],
     "pluginsData": {},
     "functions": {
       "hello": {
-        "handler": "index.handler",
+        "handler": "src/hello.hello",
         "events": [
           {
             "httpApi": {
@@ -1122,24 +1467,18 @@
           }
         ],
         "name": "reto-api-dev-hello",
-        "originalHandler": "src/hello.hello",
-        "runtime": "nodejs20.x",
         "environment": {
-          "SLS_IOT_ENDPOINT": "a11c3p4eiodppe-ats.iot.us-east-1.amazonaws.com",
-          "SLS_SERVICE": "reto-api",
-          "SLS_STAGE": "dev",
-          "SLS_FUNCTION": "hello"
+          "NODE_OPTIONS": "--enable-source-maps"
         },
-        "package": {
-          "artifact": "C:\\Users\\norbe\\Documents\\reto-backend-api\\reto-api\\.serverless\\reto-api.zip"
-        },
+        "package": {},
         "memory": 1024,
         "timeout": 6,
+        "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "HelloLambdaVersion49CKcoIIxpH7ONPUplyX7rrNarIw3e6NiJJzExTLIg"
+        "versionLogicalId": "HelloLambdaVersion14uI6evbquQBP1IhguzPG7PHEonf2R3XtwStHtvH2s4"
       },
       "people": {
-        "handler": "index.handler",
+        "handler": "src/people.people",
         "events": [
           {
             "httpApi": {
@@ -1151,24 +1490,18 @@
           }
         ],
         "name": "reto-api-dev-people",
-        "originalHandler": "src/people.people",
-        "runtime": "nodejs20.x",
         "environment": {
-          "SLS_IOT_ENDPOINT": "a11c3p4eiodppe-ats.iot.us-east-1.amazonaws.com",
-          "SLS_SERVICE": "reto-api",
-          "SLS_STAGE": "dev",
-          "SLS_FUNCTION": "people"
+          "NODE_OPTIONS": "--enable-source-maps"
         },
-        "package": {
-          "artifact": "C:\\Users\\norbe\\Documents\\reto-backend-api\\reto-api\\.serverless\\reto-api.zip"
-        },
+        "package": {},
         "memory": 1024,
         "timeout": 6,
+        "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "PeopleLambdaVersionHOsVyg3HcT2euQiDZ3BiKIvim4Trr2oMUpuAhmurmt4"
+        "versionLogicalId": "PeopleLambdaVersionBGkDEezWYqxm1CXePvA2YzkHHDig2fJ1PdRF5wl6U"
       },
       "films": {
-        "handler": "index.handler",
+        "handler": "src/films.films",
         "events": [
           {
             "httpApi": {
@@ -1180,24 +1513,18 @@
           }
         ],
         "name": "reto-api-dev-films",
-        "originalHandler": "src/films.films",
-        "runtime": "nodejs20.x",
         "environment": {
-          "SLS_IOT_ENDPOINT": "a11c3p4eiodppe-ats.iot.us-east-1.amazonaws.com",
-          "SLS_SERVICE": "reto-api",
-          "SLS_STAGE": "dev",
-          "SLS_FUNCTION": "films"
+          "NODE_OPTIONS": "--enable-source-maps"
         },
-        "package": {
-          "artifact": "C:\\Users\\norbe\\Documents\\reto-backend-api\\reto-api\\.serverless\\reto-api.zip"
-        },
+        "package": {},
         "memory": 1024,
         "timeout": 6,
+        "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "FilmsLambdaVersionrLv2wiQU0VQScM3NA2Tyfj8BUibI8NiyILdgahn1JqA"
+        "versionLogicalId": "FilmsLambdaVersion2Z0EDsHgFHM2qdt7nb5MD0hra0wGv4mg3JhoUjmYBJs"
       },
       "addFilm": {
-        "handler": "index.handler",
+        "handler": "src/addFilm.addFilm",
         "events": [
           {
             "http": {
@@ -1208,24 +1535,18 @@
           }
         ],
         "name": "reto-api-dev-addFilm",
-        "originalHandler": "src/addFilm.addFilm",
-        "runtime": "nodejs20.x",
         "environment": {
-          "SLS_IOT_ENDPOINT": "a11c3p4eiodppe-ats.iot.us-east-1.amazonaws.com",
-          "SLS_SERVICE": "reto-api",
-          "SLS_STAGE": "dev",
-          "SLS_FUNCTION": "addFilm"
+          "NODE_OPTIONS": "--enable-source-maps"
         },
-        "package": {
-          "artifact": "C:\\Users\\norbe\\Documents\\reto-backend-api\\reto-api\\.serverless\\reto-api.zip"
-        },
+        "package": {},
         "memory": 1024,
         "timeout": 6,
+        "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "AddFilmLambdaVersionSZ3IPcB79BGVdZprsmg9FFH6nhdj9i5QHvVNKTrnE"
+        "versionLogicalId": "AddFilmLambdaVersionDNFipbIhFbUnB0MUf0NvvD83KKPxowZphW4Rwpt384"
       },
       "getFilmsDB": {
-        "handler": "index.handler",
+        "handler": "src/getFilm.getFilmsDB",
         "events": [
           {
             "httpApi": {
@@ -1237,21 +1558,57 @@
           }
         ],
         "name": "reto-api-dev-getFilmsDB",
-        "originalHandler": "src/getFilm.getFilmsDB",
-        "runtime": "nodejs20.x",
         "environment": {
-          "SLS_IOT_ENDPOINT": "a11c3p4eiodppe-ats.iot.us-east-1.amazonaws.com",
-          "SLS_SERVICE": "reto-api",
-          "SLS_STAGE": "dev",
-          "SLS_FUNCTION": "getFilmsDB"
+          "NODE_OPTIONS": "--enable-source-maps"
         },
-        "package": {
-          "artifact": "C:\\Users\\norbe\\Documents\\reto-backend-api\\reto-api\\.serverless\\reto-api.zip"
-        },
+        "package": {},
         "memory": 1024,
         "timeout": 6,
+        "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "GetFilmsDBLambdaVersionbCCfIw2vVAC3jloa7tmtfCOtIAgp8aOjcxFMMNM"
+        "versionLogicalId": "GetFilmsDBLambdaVersionIMgMgUHFazS4ojRkVTerOt2aoJGshst5T8fp9iGM0"
+      },
+      "swaggerUI": {
+        "name": "reto-api-dev-swagger-ui",
+        "handler": "swagger/swagger-html.handler",
+        "disableLogs": true,
+        "events": [
+          {
+            "httpApi": {
+              "method": "get",
+              "path": "/swagger"
+            },
+            "resolvedMethod": "GET",
+            "resolvedPath": "/swagger"
+          }
+        ],
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "nodejs20.x",
+        "vpc": {},
+        "versionLogicalId": "SwaggerUILambdaVersionsif89N2zrVd17gN1Y1UEmCpmuKmPulB3nwuIp8CEMM"
+      },
+      "swaggerJSON": {
+        "name": "reto-api-dev-swagger-json",
+        "handler": "swagger/swagger-json.handler",
+        "disableLogs": true,
+        "events": [
+          {
+            "httpApi": {
+              "method": "get",
+              "path": "/swagger.json"
+            },
+            "resolvedMethod": "GET",
+            "resolvedPath": "/swagger.json"
+          }
+        ],
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "nodejs20.x",
+        "vpc": {},
+        "versionLogicalId": "SwaggerJSONLambdaVersionXl0OM0ajjVOctbdnHAuWURyGkQfTLj9A4kgWOZ8"
       }
     },
     "resources": {
@@ -1290,11 +1647,31 @@
       "provider": {
         "$ref": "$[\"service\"][\"provider\"]"
       },
+      "plugins": {
+        "$ref": "$[\"service\"][\"plugins\"]"
+      },
       "functions": {
-        "$ref": "$[\"service\"][\"functions\"]"
+        "hello": {
+          "$ref": "$[\"service\"][\"functions\"][\"hello\"]"
+        },
+        "people": {
+          "$ref": "$[\"service\"][\"functions\"][\"people\"]"
+        },
+        "films": {
+          "$ref": "$[\"service\"][\"functions\"][\"films\"]"
+        },
+        "addFilm": {
+          "$ref": "$[\"service\"][\"functions\"][\"addFilm\"]"
+        },
+        "getFilmsDB": {
+          "$ref": "$[\"service\"][\"functions\"][\"getFilmsDB\"]"
+        }
       },
       "resources": {
         "$ref": "$[\"service\"][\"resources\"]"
+      },
+      "custom": {
+        "$ref": "$[\"service\"][\"custom\"]"
       }
     },
     "app": "reto-norbesc",
@@ -1304,7 +1681,7 @@
     "layers": {}
   },
   "package": {
-    "artifactDirectoryName": "serverless/reto-api/dev/1722616547481-2024-08-02T16:35:47.481Z",
+    "artifactDirectoryName": "serverless/reto-api/dev/1722627606109-2024-08-02T19:40:06.109Z",
     "artifact": "reto-api.zip"
   }
 }

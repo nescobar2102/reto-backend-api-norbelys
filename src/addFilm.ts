@@ -2,13 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import AWS from 'aws-sdk';
 import { v4 } from 'uuid';
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda';
- 
-interface Films {
-  titulo: string;
-  director: string;
-  productor: string; 
-}
- 
+import { FilmResponse } from './types/api-types'; 
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 const tableName = 'FilmTable';
@@ -34,15 +28,17 @@ const addFilm = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
     };
 
     await dynamodb.put(params).promise();
-
+    
+    const result: FilmResponse = {
+      success: true,
+      data: newFilm,
+      message: 'The resource has been created successfully!.',
+    };
     return {
       statusCode: 201,
-      body: JSON.stringify({
-        success:true,
-        data:newFilm,
-        message:'The resource has been created successfully!.'
-      }),
+      body: JSON.stringify(result),
     };
+
   } catch (error) {
     console.error(error); 
     return {

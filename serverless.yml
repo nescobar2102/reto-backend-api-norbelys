@@ -1,27 +1,27 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: norbesc
-# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
 app: reto-norbesc
-# "service" is the name of this project. This will also be added to your AWS resource names.
 service: reto-api
 
 provider:
   name: aws
-  runtime: nodejs20.x   
-  region: us-east-1 
+  runtime: nodejs20.x
+  region: us-east-1
 
   iam:
-      role:
-        statements:
-          - Effect: Allow
-            Action:
-              - dynamodb:Query
-              - dynamodb:Scan
-              - dynamodb:GetItem
-              - dynamodb:PutItem 
-            Resource:
-              - Fn::GetAtt: [FilmTable, Arn]
- 
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+          Resource:
+            - Fn::GetAtt: [FilmTable, Arn]
+
+plugins:
+  - serverless-auto-swagger
+
 functions:
   hello:
     handler: src/hello.hello
@@ -34,13 +34,13 @@ functions:
     events:
       - httpApi:
           path: /api/getPeople
-          method: get  
+          method: get
   films:
     handler: src/films.films
     events:
       - httpApi:
           path: /api/getFilm
-          method: get  
+          method: get
   addFilm:
     handler: src/addFilm.addFilm
     events:
@@ -52,7 +52,7 @@ functions:
     events:
       - httpApi:
           path: /api/getFilmsById/{id}
-          method: get        
+          method: get
 
 resources:
   Resources:
@@ -65,7 +65,91 @@ resources:
             AttributeType: S
         KeySchema:
           - AttributeName: id
-            KeyType: HASH  
+            KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+
+custom:
+  documentation:
+    api:
+      info:
+        title: Reto API
+        version: 1.0.0
+    models:
+      - name: Film
+        description: A film resource
+        type: object
+        required:
+          - id
+          - title
+          - director
+          - producer
+        properties:
+          id:
+            type: string
+          title:
+            type: string
+          director:
+            type: string
+          producer:
+            type: string
+    operations:
+      - path: /api
+        method: get
+        summary: Get a hello message
+        description: Retrieves a simple hello message
+        responses:
+          '200':
+            description: Successful response
+            schema:
+              $ref: '#/models/Film'
+      - path: /api/getPeople
+        method: get
+        summary: Get a list of people
+        description: Retrieves a list of people
+        responses:
+          '200':
+            description: Successful response
+            schema:
+              type: array
+              items:
+                $ref: '#/models/Film'
+      - path: /api/getFilm
+        method: get
+        summary: Get a film
+        description: Retrieves a film
+        responses:
+          '200':
+            description: Successful response
+            schema:
+              $ref: '#/models/Film'
+      - path: /api/createFill
+        method: post
+        summary: Create a film
+        description: Creates a new film
+        requestBody:
+          description: The film to create
+          required: true
+          schema:
+            $ref: '#/models/Film'
+        responses:
+          '200':
+            description: Successful response
+            schema:
+              $ref: '#/models/Film'
+      - path: /api/getFilmsById/{id}
+        method: get
+        summary: Get a film by ID
+        description: Retrieves a film by its ID
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: string
+        responses:
+          '200':
+            description: Successful response
+            schema:
+              $ref: '#/models/Film'

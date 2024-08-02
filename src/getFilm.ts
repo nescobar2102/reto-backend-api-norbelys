@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import AWS from 'aws-sdk';
 import { v4 } from 'uuid';
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda';
+import { FilmResponse } from './types/api-types';
  
 interface Films {
   titulo: string;
@@ -21,29 +22,29 @@ const getFilmsDB = async (event:APIGatewayProxyEvent): Promise<APIGatewayProxyRe
         id: event.pathParameters?.id
       },
     };
-    const result = await dynamodb
+    const resultItem = await dynamodb
     .get(params)
     .promise();
    
-    const films = result.Item;
+    const films = resultItem.Item;
     console.log("item de la BD",films)
-
+    
+    const result: FilmResponse = {
+      success: true,
+      data: films,
+      message:'The resource has been recovered!.'
+    };
     return {
       statusCode: 200,
-      body: JSON.stringify({
-        success:true,
-        data:films,
-        message:'The resource has been recovered!.'
-      }),
-
-    };
+      body: JSON.stringify(result),
+    }; 
+ 
   } catch (error) {
     console.error(error);
     return {
       statusCode: 500,
       body: JSON.stringify({
-        success:false,
-        data:films,
+        success:false, 
         message:'An error occurred!.',
       }),
       

@@ -13713,12 +13713,14 @@ var films = async () => {
       productor: resource.producer,
       fecha_estreno: resource.release_date
     }));
+    const result = {
+      success: true,
+      data: filmsList,
+      message: "."
+    };
     return {
       statusCode: 200,
-      body: JSON.stringify({
-        success: true,
-        data: filmsList
-      })
+      body: JSON.stringify(result)
     };
   } catch (error) {
     console.error(error);
