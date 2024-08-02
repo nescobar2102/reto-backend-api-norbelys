@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../src/hello.ts"],
+  "sourcesContent": ["\"use strict\";\r\n\r\ninterface APIGatewayProxyEvent {\r\n  [key: string]: any;\r\n}\r\n\r\ninterface APIGatewayProxyResult {\r\n  statusCode: number;\r\n  body: string;\r\n}\r\n\r\nconst hello = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {\r\n  return {\r\n    statusCode: 200,\r\n    body: JSON.stringify(\r\n      {\r\n        message: \"Welcome API!\",\r\n        input: event,\r\n      },\r\n      null,\r\n      2\r\n    ),\r\n  };\r\n};\r\n\r\nexport { hello };"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAWA,IAAM,QAAQ,OAAO,UAAgE;AACnF,SAAO;AAAA,IACL,YAAY;AAAA,IACZ,MAAM,KAAK;AAAA,MACT;AAAA,QACE,SAAS;AAAA,QACT,OAAO;AAAA,MACT;AAAA,MACA;AAAA,MACA;AAAA,IACF;AAAA,EACF;AACF;",
+  "names": []
+}

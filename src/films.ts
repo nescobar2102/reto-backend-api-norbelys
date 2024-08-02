@@ -22,8 +22,7 @@ const films = async (): Promise<APIGatewayProxyResult> => {
     }));
 
     return {
-      statusCode: 200,
-      
+      statusCode: 200,      
       body: JSON.stringify({
         success:true,
         data:filmsList 
@@ -35,7 +34,6 @@ const films = async (): Promise<APIGatewayProxyResult> => {
       statusCode: 500,
       body: JSON.stringify({
         success:false,
-        data:films,
         message:'An error occurred!.',
       }),
     };

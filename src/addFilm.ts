@@ -19,11 +19,7 @@ const addFilm = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
     const { title, producer, director } = JSON.parse(event.body!);
     const createdAt = new Date();
     const id = v4();
-
-    console.log("created id Film: ", id);
-    console.log("created id title: ", title);
-    console.log("created id producer: ", producer);
-    console.log("created id director: ", director);
+ 
     const newFilm = {
       id,
       title,
@@ -53,7 +49,6 @@ const addFilm = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResu
       statusCode: 500,
       body: JSON.stringify({
         success:false,
-        data:films,
         message:'An error occurred!.',
       }),
     };
