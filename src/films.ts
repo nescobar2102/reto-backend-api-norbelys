@@ -1,20 +1,17 @@
-import axios, { AxiosResponse } from 'axios';
-
+import axios, { AxiosResponse } from 'axios'; 
+import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda';
+ 
 interface Films {
   titulo: string;
   director: string;
   productor: string;
-  fecha_estreno: string; 
+  fecha_estreno: string;
 }
 
-interface APIGatewayProxyResult {
-  statusCode: number;
-  body: string;
-}
-
+   
 const films = async (): Promise<APIGatewayProxyResult> => {
   try {
-    const url ='https://swapi.py4e.com/api/films';
+    const url = 'https://swapi.py4e.com/api/films';
     const response: AxiosResponse = await axios.get(url);
 
     const filmsList: Films[] = response.data.results.map((resource: any) => ({
@@ -26,20 +23,26 @@ const films = async (): Promise<APIGatewayProxyResult> => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify(filmsList),
+      
+      body: JSON.stringify({
+        success:true,
+        data:filmsList 
+      }),
     };
   } catch (error) {
     console.error(error);
     return {
       statusCode: 500,
-      body: 'Ocurrió un error.',
+      body: JSON.stringify({
+        success:false,
+        data:films,
+        message:'An error occurred!.',
+      }),
     };
   }
 };
 
 
- 
-
 export {
-  films, 
-  };
+  films,  
+};

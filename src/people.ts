@@ -45,8 +45,11 @@ const people = async (): Promise<APIGatewayProxyResult> => {
     }));
 
     return {
-      statusCode: 200,
-      body: JSON.stringify(peopleList),
+      statusCode: 200, 
+      body: JSON.stringify({
+        success:true,
+        data:peopleList, 
+      }),
     };
   } catch (error) {
     console.error(error);

@@ -4,28 +4,68 @@ org: norbesc
 app: reto-norbesc
 # "service" is the name of this project. This will also be added to your AWS resource names.
 service: reto-api
- 
+
 provider:
   name: aws
-  runtime: nodejs20.x  
+  runtime: nodejs20.x   
+  region: us-east-1 
 
+  iam:
+      role:
+        statements:
+          - Effect: Allow
+            Action:
+              - dynamodb:Query
+              - dynamodb:Scan
+              - dynamodb:GetItem
+              - dynamodb:PutItem 
+            Resource:
+              - Fn::GetAtt: [FilmTable, Arn]
+ 
 functions:
   hello:
     handler: src/hello.hello
     events:
       - httpApi:
-          path: /
+          path: /api
           method: get
   people:
     handler: src/people.people
     events:
       - httpApi:
-          path: /getPeople
+          path: /api/getPeople
           method: get  
   films:
     handler: src/films.films
     events:
       - httpApi:
-          path: /getFilm
-          method: get                
- 
+          path: /api/getFilm
+          method: get  
+  addFilm:
+    handler: src/addFilm.addFilm
+    events:
+      - http:
+          path: /api/createFill
+          method: post
+  getFilmsDB:
+    handler: src/getFilm.getFilmsDB
+    events:
+      - httpApi:
+          path: /api/getFilmsById/{id}
+          method: get        
+
+resources:
+  Resources:
+    FilmTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: FilmTable
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH  
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
