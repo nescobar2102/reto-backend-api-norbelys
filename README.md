@@ -37,5 +37,6 @@ cd reto-norbesc
 
 3. Install the dependencies:
 npm install
-4.Deployment:
+
+4. Deployment:
 serverless deploy
