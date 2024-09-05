@@ -77,16 +77,16 @@
         "LogGroupName": "/aws/lambda/reto-api-dev-app"
       }
     },
+    "GetFilmLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/reto-api-dev-GetFilm"
+      }
+    },
     "PeopleLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
         "LogGroupName": "/aws/lambda/reto-api-dev-people"
-      }
-    },
-    "FilmsLogGroup": {
-      "Type": "AWS::Logs::LogGroup",
-      "Properties": {
-        "LogGroupName": "/aws/lambda/reto-api-dev-films"
       }
     },
     "AddFilmLogGroup": {
@@ -215,7 +215,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/reto-api/dev/1722631827242-2024-08-02T20:50:27.242Z/reto-api.zip"
+          "S3Key": "serverless/reto-api/dev/1725568799089-2024-09-05T20:39:59.089Z/reto-api.zip"
         },
         "Handler": "src/app.welcome",
         "Runtime": "nodejs20.x",
@@ -238,6 +238,36 @@
         "AppLogGroup"
       ]
     },
+    "GetFilmLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/reto-api/dev/1725568799089-2024-09-05T20:39:59.089Z/reto-api.zip"
+        },
+        "Handler": "src/lambda/starWars/index.handler",
+        "Runtime": "nodejs20.x",
+        "FunctionName": "reto-api-dev-GetFilm",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "NODE_OPTIONS": "--enable-source-maps"
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "GetFilmLogGroup"
+      ]
+    },
     "PeopleLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -245,9 +275,9 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/reto-api/dev/1722631827242-2024-08-02T20:50:27.242Z/reto-api.zip"
+          "S3Key": "serverless/reto-api/dev/1725568799089-2024-09-05T20:39:59.089Z/reto-api.zip"
         },
-        "Handler": "src/people.people",
+        "Handler": "src/controllers/people.handler",
         "Runtime": "nodejs20.x",
         "FunctionName": "reto-api-dev-people",
         "MemorySize": 1024,
@@ -268,36 +298,6 @@
         "PeopleLogGroup"
       ]
     },
-    "FilmsLambdaFunction": {
-      "Type": "AWS::Lambda::Function",
-      "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Ref": "ServerlessDeploymentBucket"
-          },
-          "S3Key": "serverless/reto-api/dev/1722631827242-2024-08-02T20:50:27.242Z/reto-api.zip"
-        },
-        "Handler": "src/films.films",
-        "Runtime": "nodejs20.x",
-        "FunctionName": "reto-api-dev-films",
-        "MemorySize": 1024,
-        "Timeout": 6,
-        "Environment": {
-          "Variables": {
-            "NODE_OPTIONS": "--enable-source-maps"
-          }
-        },
-        "Role": {
-          "Fn::GetAtt": [
-            "IamRoleLambdaExecution",
-            "Arn"
-          ]
-        }
-      },
-      "DependsOn": [
-        "FilmsLogGroup"
-      ]
-    },
     "AddFilmLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -305,9 +305,9 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/reto-api/dev/1722631827242-2024-08-02T20:50:27.242Z/reto-api.zip"
+          "S3Key": "serverless/reto-api/dev/1725568799089-2024-09-05T20:39:59.089Z/reto-api.zip"
         },
-        "Handler": "src/addFilm.addFilm",
+        "Handler": "src/controllers/addFilm.handler",
         "Runtime": "nodejs20.x",
         "FunctionName": "reto-api-dev-addFilm",
         "MemorySize": 1024,
@@ -335,9 +335,9 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/reto-api/dev/1722631827242-2024-08-02T20:50:27.242Z/reto-api.zip"
+          "S3Key": "serverless/reto-api/dev/1725568799089-2024-09-05T20:39:59.089Z/reto-api.zip"
         },
-        "Handler": "src/getFilm.getFilmsDB",
+        "Handler": "src/controllers/getFilm.handler",
         "Runtime": "nodejs20.x",
         "FunctionName": "reto-api-dev-getFilmsDB",
         "MemorySize": 1024,
@@ -365,7 +365,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/reto-api/dev/1722631827242-2024-08-02T20:50:27.242Z/reto-api.zip"
+          "S3Key": "serverless/reto-api/dev/1725568799089-2024-09-05T20:39:59.089Z/reto-api.zip"
         },
         "Handler": "swagger/swagger-html.handler",
         "Runtime": "nodejs20.x",
@@ -387,7 +387,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/reto-api/dev/1722631827242-2024-08-02T20:50:27.242Z/reto-api.zip"
+          "S3Key": "serverless/reto-api/dev/1725568799089-2024-09-05T20:39:59.089Z/reto-api.zip"
         },
         "Handler": "swagger/swagger-json.handler",
         "Runtime": "nodejs20.x",
@@ -402,74 +402,74 @@
         }
       }
     },
-    "AppLambdaVersionoNXjRkdYDtud5ahAnTLWWl8JVc9KUsC0Pe8gHkXh0w": {
+    "AppLambdaVersionsNW9wciLVRRIb44WXE8c1uPNrVg6HGxPrxdoxmucmlA": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "NgjjJrmhV7uAuZzds9CTLdg5WSpA5LNVCHMOXpsV094="
+        "CodeSha256": "AT5Ymxgpn2Ve47IV6eyYOnEWTgfBiXxmDs3WmBUGA9k="
       }
     },
-    "PeopleLambdaVersionLOk3e3qd1BvefbaQmVtLGurhghHhJSlAjzskVi3ARwo": {
+    "GetFilmLambdaVersionHC0vFVdYkgAtrAFsFOBPE5vdKwFlKGG2TMyfH6rfQE": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "GetFilmLambdaFunction"
+        },
+        "CodeSha256": "AT5Ymxgpn2Ve47IV6eyYOnEWTgfBiXxmDs3WmBUGA9k="
+      }
+    },
+    "PeopleLambdaVersionFFJrCnXHv5uyluXId9b0u91DJOX9NIbMdXHxnq557JE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "PeopleLambdaFunction"
         },
-        "CodeSha256": "NgjjJrmhV7uAuZzds9CTLdg5WSpA5LNVCHMOXpsV094="
+        "CodeSha256": "AT5Ymxgpn2Ve47IV6eyYOnEWTgfBiXxmDs3WmBUGA9k="
       }
     },
-    "FilmsLambdaVersionUikwPml6rVoNknOjmkFARdJdiJPrYv7M1StnyKiTZ8": {
-      "Type": "AWS::Lambda::Version",
-      "DeletionPolicy": "Retain",
-      "Properties": {
-        "FunctionName": {
-          "Ref": "FilmsLambdaFunction"
-        },
-        "CodeSha256": "NgjjJrmhV7uAuZzds9CTLdg5WSpA5LNVCHMOXpsV094="
-      }
-    },
-    "AddFilmLambdaVersion1oWn3vf6Ilgun9jsJnNigGSwqbAEmP2D6VrQKYgUE": {
+    "AddFilmLambdaVersionvir7Vc2E2L998y7E09IfvFNBYTtivzfDGDTKico": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AddFilmLambdaFunction"
         },
-        "CodeSha256": "NgjjJrmhV7uAuZzds9CTLdg5WSpA5LNVCHMOXpsV094="
+        "CodeSha256": "AT5Ymxgpn2Ve47IV6eyYOnEWTgfBiXxmDs3WmBUGA9k="
       }
     },
-    "GetFilmsDBLambdaVersioneUNogl8Gp04dyFEfg22fENy58Bm2vVmOa7lcikY2rU": {
+    "GetFilmsDBLambdaVersionUL8ZOrrKxAgPmXOtgNHPhWG6KUxam8TPwGvriGAy8": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetFilmsDBLambdaFunction"
         },
-        "CodeSha256": "NgjjJrmhV7uAuZzds9CTLdg5WSpA5LNVCHMOXpsV094="
+        "CodeSha256": "AT5Ymxgpn2Ve47IV6eyYOnEWTgfBiXxmDs3WmBUGA9k="
       }
     },
-    "SwaggerUILambdaVersionCvot4gUVs6TdeTjaxqVnOg6KKLbtYRTFr7YgRl89WY": {
+    "SwaggerUILambdaVersionOr8RDbsxUBaFSngVWRfnH95sJU4xNhHAZVAFaO8s9M": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "SwaggerUILambdaFunction"
         },
-        "CodeSha256": "NgjjJrmhV7uAuZzds9CTLdg5WSpA5LNVCHMOXpsV094="
+        "CodeSha256": "AT5Ymxgpn2Ve47IV6eyYOnEWTgfBiXxmDs3WmBUGA9k="
       }
     },
-    "SwaggerJSONLambdaVersionC1nV6TyEa388zF6LISFxb4Ql8bHFvuT7d9xMtf19i0": {
+    "SwaggerJSONLambdaVersionCSifewsl87fzyoNWlZrJhJPqDgTz09Yn0t9tTcKrhk": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "SwaggerJSONLambdaFunction"
         },
-        "CodeSha256": "NgjjJrmhV7uAuZzds9CTLdg5WSpA5LNVCHMOXpsV094="
+        "CodeSha256": "AT5Ymxgpn2Ve47IV6eyYOnEWTgfBiXxmDs3WmBUGA9k="
       }
     },
     "ApiGatewayRestApi": {
@@ -557,7 +557,7 @@
         "AddFilmLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1722631817323": {
+    "ApiGatewayDeployment1725568778587": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -775,81 +775,6 @@
         }
       },
       "DependsOn": "HttpApiIntegrationPeople"
-    },
-    "FilmsLambdaPermissionHttpApi": {
-      "Type": "AWS::Lambda::Permission",
-      "Properties": {
-        "FunctionName": {
-          "Fn::GetAtt": [
-            "FilmsLambdaFunction",
-            "Arn"
-          ]
-        },
-        "Action": "lambda:InvokeFunction",
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
-                "Ref": "AWS::Partition"
-              },
-              ":execute-api:",
-              {
-                "Ref": "AWS::Region"
-              },
-              ":",
-              {
-                "Ref": "AWS::AccountId"
-              },
-              ":",
-              {
-                "Ref": "HttpApi"
-              },
-              "/*"
-            ]
-          ]
-        }
-      }
-    },
-    "HttpApiIntegrationFilms": {
-      "Type": "AWS::ApiGatewayV2::Integration",
-      "Properties": {
-        "ApiId": {
-          "Ref": "HttpApi"
-        },
-        "IntegrationType": "AWS_PROXY",
-        "IntegrationUri": {
-          "Fn::GetAtt": [
-            "FilmsLambdaFunction",
-            "Arn"
-          ]
-        },
-        "PayloadFormatVersion": "2.0",
-        "TimeoutInMillis": 30000
-      }
-    },
-    "HttpApiRouteGetApiGetfilm": {
-      "Type": "AWS::ApiGatewayV2::Route",
-      "Properties": {
-        "ApiId": {
-          "Ref": "HttpApi"
-        },
-        "RouteKey": "GET /api/getFilm",
-        "Target": {
-          "Fn::Join": [
-            "/",
-            [
-              "integrations",
-              {
-                "Ref": "HttpApiIntegrationFilms"
-              }
-            ]
-          ]
-        }
-      },
-      "DependsOn": "HttpApiIntegrationFilms"
     },
     "GetFilmsDBLambdaPermissionHttpApi": {
       "Type": "AWS::Lambda::Permission",
@@ -1111,34 +1036,34 @@
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersionoNXjRkdYDtud5ahAnTLWWl8JVc9KUsC0Pe8gHkXh0w"
+        "Ref": "AppLambdaVersionsNW9wciLVRRIb44WXE8c1uPNrVg6HGxPrxdoxmucmlA"
       },
       "Export": {
         "Name": "sls-reto-api-dev-AppLambdaFunctionQualifiedArn"
       }
     },
+    "GetFilmLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "GetFilmLambdaVersionHC0vFVdYkgAtrAFsFOBPE5vdKwFlKGG2TMyfH6rfQE"
+      },
+      "Export": {
+        "Name": "sls-reto-api-dev-GetFilmLambdaFunctionQualifiedArn"
+      }
+    },
     "PeopleLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "PeopleLambdaVersionLOk3e3qd1BvefbaQmVtLGurhghHhJSlAjzskVi3ARwo"
+        "Ref": "PeopleLambdaVersionFFJrCnXHv5uyluXId9b0u91DJOX9NIbMdXHxnq557JE"
       },
       "Export": {
         "Name": "sls-reto-api-dev-PeopleLambdaFunctionQualifiedArn"
       }
     },
-    "FilmsLambdaFunctionQualifiedArn": {
-      "Description": "Current Lambda function version",
-      "Value": {
-        "Ref": "FilmsLambdaVersionUikwPml6rVoNknOjmkFARdJdiJPrYv7M1StnyKiTZ8"
-      },
-      "Export": {
-        "Name": "sls-reto-api-dev-FilmsLambdaFunctionQualifiedArn"
-      }
-    },
     "AddFilmLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AddFilmLambdaVersion1oWn3vf6Ilgun9jsJnNigGSwqbAEmP2D6VrQKYgUE"
+        "Ref": "AddFilmLambdaVersionvir7Vc2E2L998y7E09IfvFNBYTtivzfDGDTKico"
       },
       "Export": {
         "Name": "sls-reto-api-dev-AddFilmLambdaFunctionQualifiedArn"
@@ -1147,7 +1072,7 @@
     "GetFilmsDBLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetFilmsDBLambdaVersioneUNogl8Gp04dyFEfg22fENy58Bm2vVmOa7lcikY2rU"
+        "Ref": "GetFilmsDBLambdaVersionUL8ZOrrKxAgPmXOtgNHPhWG6KUxam8TPwGvriGAy8"
       },
       "Export": {
         "Name": "sls-reto-api-dev-GetFilmsDBLambdaFunctionQualifiedArn"
@@ -1156,7 +1081,7 @@
     "SwaggerUILambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "SwaggerUILambdaVersionCvot4gUVs6TdeTjaxqVnOg6KKLbtYRTFr7YgRl89WY"
+        "Ref": "SwaggerUILambdaVersionOr8RDbsxUBaFSngVWRfnH95sJU4xNhHAZVAFaO8s9M"
       },
       "Export": {
         "Name": "sls-reto-api-dev-SwaggerUILambdaFunctionQualifiedArn"
@@ -1165,7 +1090,7 @@
     "SwaggerJSONLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "SwaggerJSONLambdaVersionC1nV6TyEa388zF6LISFxb4Ql8bHFvuT7d9xMtf19i0"
+        "Ref": "SwaggerJSONLambdaVersionCSifewsl87fzyoNWlZrJhJPqDgTz09Yn0t9tTcKrhk"
       },
       "Export": {
         "Name": "sls-reto-api-dev-SwaggerJSONLambdaFunctionQualifiedArn"

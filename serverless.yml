@@ -5,7 +5,8 @@ service: reto-api
 provider:
   name: aws
   runtime: nodejs20.x
-  region: us-east-1
+  region: us-east-1 
+  
 
   iam:
     role:
@@ -29,26 +30,26 @@ functions:
       - httpApi:
           path: /api
           method: get
+
+  GetFilm:
+    handler: src/lambda/starWars/index.handler 
+    # Este handler no expone un endpoint HTTP, se invoca desde otras funciones Lambda
+
   people:
-    handler: src/people.people
+    handler: src/controllers/people.handler
     events:
       - httpApi:
           path: /api/getPeople
           method: get
-  films:
-    handler: src/films.films
-    events:
-      - httpApi:
-          path: /api/getFilm
-          method: get
+ 
   addFilm:
-    handler: src/addFilm.addFilm
+    handler: src/controllers/addFilm.handler
     events:
       - http:
           path: /api/createFill
           method: post
   getFilmsDB:
-    handler: src/getFilm.getFilmsDB
+    handler: src/controllers/getFilm.handler
     events:
       - httpApi:
           path: /api/getFilmsById/{id}
@@ -82,15 +83,19 @@ custom:
         type: object
         required:
           - id
+          - email
           - title
           - director
           - producer
         properties:
           id:
             type: string
+          email:
+            type: string  
           title:
             type: string
           director:
+
             type: string
           producer:
             type: string

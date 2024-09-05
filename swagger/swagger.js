@@ -44,25 +44,6 @@
         }
       }
     },
-    "/api/getFilm": {
-      "get": {
-        "summary": "films",
-        "description": "",
-        "operationId": "films.get./api/getFilm",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "200 response"
-          }
-        }
-      }
-    },
     "/api/createFill": {
       "post": {
         "summary": "addFilm",
@@ -194,10 +175,6 @@
     },
     "FilmResponse": {
       "properties": {
-        "success": {
-          "title": "FilmResponse.success",
-          "type": "boolean"
-        },
         "data": {
           "$ref": "#/definitions/%C3%A4ny",
           "title": "FilmResponse.data"
@@ -208,7 +185,6 @@
         }
       },
       "required": [
-        "success",
         "data",
         "message"
       ],

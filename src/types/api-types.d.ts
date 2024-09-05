@@ -22,8 +22,7 @@ export interface APIGatewayProxyEvent {
 }
  
 
-export interface FilmResponse {
-  success: boolean;
+export interface FilmResponse { 
   data: äny;
   message: string;
 }

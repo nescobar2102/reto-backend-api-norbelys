@@ -1,0 +1,104 @@
+{
+    "info": {
+        "_postman_id": "272f8ee2-d4e7-4e9d-a88e-f77c5bb75a08",
+        "name": "RETO",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "Obtener los personajes",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "https://r1g5jndp5b.execute-api.us-east-1.amazonaws.com/api/getPeople",
+                    "path": [
+                        "api",
+                        "getPeople"
+                    ],
+                    "protocol": "https",
+                    "host": [
+                        "r1g5jndp5b",
+                        "execute-api",
+                        "us-east-1",
+                        "amazonaws",
+                        "com"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Bienvenida Api",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "https://07jw42e67c.execute-api.us-east-1.amazonaws.com/api",
+                    "path": [
+                        "api"
+                    ],
+                    "protocol": "https",
+                    "host": [
+                        "07jw42e67c",
+                        "execute-api",
+                        "us-east-1",
+                        "amazonaws",
+                        "com"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Crear una pelicula",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "https://8s3mh295bk.execute-api.us-east-1.amazonaws.com/dev/api/createFill",
+                    "path": [
+                        "dev",
+                        "api",
+                        "createFill"
+                    ],
+                    "protocol": "https",
+                    "host": [
+                        "8s3mh295bk",
+                        "execute-api",
+                        "us-east-1",
+                        "amazonaws",
+                        "com"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"email\":\"test@test.com\",\n  \"title\":\"AWS RETO 22\",\n  \"producer\":\"Softteck\",\n  \"director\":\"Juanito Perez\"\n}"
+                }
+            }
+        },
+        {
+            "name": "Obtener una pelicula por ID",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "https://r1g5jndp5b.execute-api.us-east-1.amazonaws.com/api/getFilmsById/a3f916f8-0fb6-497e-99fc-0190571d5e02",
+                    "path": [
+                        "api",
+                        "getFilmsById",
+                        "a3f916f8-0fb6-497e-99fc-0190571d5e02"
+                    ],
+                    "protocol": "https",
+                    "host": [
+                        "r1g5jndp5b",
+                        "execute-api",
+                        "us-east-1",
+                        "amazonaws",
+                        "com"
+                    ]
+                }
+            }
+        }
+    ]
+}
